@@ -1,0 +1,1 @@
+#My goal for taking this class was to learn more about data engineering, querying techniques, and making reports for my personal benefit.
