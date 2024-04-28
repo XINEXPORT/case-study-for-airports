@@ -21,25 +21,33 @@ head(tsa_claims)
 names(tsa_claims) <- tolower(names(tsa_claims))
 tsa_claims
 
-tsa_claims %>%
+tsaclaims_ch<-tsa_claims %>%
   rename(
     claim_number = `claim number`,
     date_received = `date received`,
     incident_date = `incident date`,
     airport_code = `airport code`,
+    airport_name = `airport name`,
     airline_name =  `airline name`,
     claim_type =  `claim type`,
     claim_site = `claim site`,
     claim_amount = `claim amount`,
     close_amount =  `close amount` 
     )
+tsaclaims_ch
 
 # What is the most common type of insurance claim?
+# The most common insurance claim is Passenger Property Loss.
 
-
-
-
+tsaclaims_ch %>%
+  group_by(claim_type) %>%
+  summarize(
+    Count= n(),
+  ) %>%
+  arrange(desc(Count))
+  
 # Which claim site within the airport are claims most commonly filed for?
+
 
 # What type of claim is made most at each claim site? Hint: You can group by multiple columns.
 
