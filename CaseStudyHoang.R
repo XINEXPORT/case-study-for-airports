@@ -36,6 +36,14 @@ tsaclaims_ch<-tsa_claims %>%
     )
 tsaclaims_ch
 
+#All claim sites
+tsaclaims_ch %>%
+  group_by(claim_site) %>%
+  summarize(
+    Count= n(),
+  ) %>%
+  arrange(desc(Count))
+
 # What is the most common type of insurance claim?
 # Passenger Property Loss is the most common insurance claim. 
 
@@ -49,16 +57,28 @@ tsaclaims_ch %>%
 # Which claim site within the airport are claims most commonly filed for?
 # Checked Baggage is the most common site for filed claims.
 
-tsaclaims_ch %>%
+mostcommonclaim <- tsaclaims_ch %>%
   group_by(claim_site) %>%
   summarize(
     Count= n(),
   ) %>%
   arrange(desc(Count))
 
+mostcommonclaim
+
 # What type of claim is made most at each claim site? Hint: You can group by multiple columns.
+commonclaims_persite <-tsaclaims_ch %>%
+  group_by(claim_site, claim_type) %>%
+  summarize(
+    Count = n(),
+  ) %>%
+  arrange (claim_site, desc(Count)) %>%
+  slice(1)
+
+commonclaims_persite 
 
 # What is the median claim amount?
+
 
 # What is the overall claim approval rate for the entire U.S.? Hint: You can get the number of claims for each status add then add a column that uses the sum() function to calculate the total number of claims.
 
