@@ -47,12 +47,14 @@ tsaclaims_ch %>%
 # What is the most common type of insurance claim?
 # Passenger Property Loss is the most common insurance claim. 
 
-tsaclaims_ch %>%
+commonclaimtype <- tsaclaims_ch %>%
   group_by(claim_type) %>%
   summarize(
     Count= n(),
   ) %>%
   arrange(desc(Count))
+
+commonclaimtype
   
 # Which claim site within the airport are claims most commonly filed for?
 # Checked Baggage is the most common site for filed claims.
@@ -67,6 +69,9 @@ mostcommonclaim <- tsaclaims_ch %>%
 mostcommonclaim
 
 # What type of claim is made most at each claim site? Hint: You can group by multiple columns.
+# Passenger Property Loss is the most common claim at Checked Baggage. Property Damage is the most common claim at Checkpoint.
+# Passenger Property Loss is the most common claim at Motor vehicle. Passenger Property Loss for all other cases is the most common claim.
+
 commonclaims_persite <-tsaclaims_ch %>%
   group_by(claim_site, claim_type) %>%
   summarize(
@@ -78,7 +83,24 @@ commonclaims_persite <-tsaclaims_ch %>%
 commonclaims_persite 
 
 # What is the median claim amount?
+# The average claim amount is 3,635.
 
+averageclaim_all <-tsaclaims_ch %>%
+  summarize(
+    AverageClaimAmount = mean(claim_amount)
+  )
+
+averageclaim_all
+
+
+medianclaimamount_pertype <-tsaclaims_ch %>%
+  group_by(claim_type) %>%
+  summarize(
+    TotalClaims = sum(claim_amount),
+    AverageClaim = mean(claim_amount)
+  )
+
+medianclaimamount_pertype
 
 # What is the overall claim approval rate for the entire U.S.? Hint: You can get the number of claims for each status add then add a column that uses the sum() function to calculate the total number of claims.
 
