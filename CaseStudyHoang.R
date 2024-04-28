@@ -1,4 +1,4 @@
-#My goal for taking this class was to learn more about data engineering, querying techniques, and making reports for my personal benefit.
+#Christine Hoang
 
 library(readr)
 install.packages("tidyverse")
@@ -46,7 +46,6 @@ tsaclaims_ch %>%
 
 # What is the most common type of insurance claim?
 # answer:  Passenger Property Loss is the most common insurance claim. 
-
 
 commonclaimtype <- tsaclaims_ch %>%
   group_by(claim_type) %>%
@@ -105,23 +104,27 @@ medianclaimamount_pertype
 
 # What is the overall claim approval rate for the entire U.S.? 
 # Hint: You can get the number of claims for each status add then add a column that uses the sum() function to calculate the total number of claims.
+#The overall claim approval rate is 0.996%.
 
 approved_only <-tsaclaims_ch %>%
 count(status)%>%
   filter(status == "Approved")
 approved_only
 
-claimapproval<-tsaclaims_ch %>%
+
+claim_approval <- tsaclaims_ch %>%
   group_by(status) %>%
   summarize(
     TotalClaims = sum(claim_amount)
   ) %>%
-  filter(status =="Approved") %>%
   mutate(
-    Rate = TotalClaims/sum(TotalClaims)*100
+    Rate = TotalClaims / sum(TotalClaims) * 100
   )
 
 claim_approval 
+
+#My goal for taking this class was to learn more about data engineering, querying techniques, and making reports for my personal benefit.
+
 
 
 
