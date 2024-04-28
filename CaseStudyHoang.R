@@ -37,7 +37,7 @@ tsaclaims_ch<-tsa_claims %>%
 tsaclaims_ch
 
 # What is the most common type of insurance claim?
-# The most common insurance claim is Passenger Property Loss.
+# Passenger Property Loss is the most common insurance claim. 
 
 tsaclaims_ch %>%
   group_by(claim_type) %>%
@@ -47,7 +47,14 @@ tsaclaims_ch %>%
   arrange(desc(Count))
   
 # Which claim site within the airport are claims most commonly filed for?
+# Checked Baggage is the most common site for filed claims.
 
+tsaclaims_ch %>%
+  group_by(claim_site) %>%
+  summarize(
+    Count= n(),
+  ) %>%
+  arrange(desc(Count))
 
 # What type of claim is made most at each claim site? Hint: You can group by multiple columns.
 
